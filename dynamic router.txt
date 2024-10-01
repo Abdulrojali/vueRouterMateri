@@ -1,0 +1,78 @@
+A. dynamic router digunakan untuk memetakan navigasi links pada vue router dengan teratur
+contoh :
+
+file index.js
+{
+    path:'/home/:id',
+    name:'homedetail',
+    component:()=>import('.view/homedetail.vue')
+}
+
+
+file home.vue
+<script>
+export default{
+    return{
+        datas:[
+            {id:1,nama:'budi'},
+            {id:2,nama:'ahmad'},
+            {id:3,nama:'ridho'},
+        ]
+    }
+}
+</script>
+<template>
+<div class='links'
+v-for='(data,index) in datas' :key='data.id'>
+<RouterLink :to="`/home/${data.id}`">view</RouterLink>
+</div>
+</template>
+
+
+
+file homedetail.vue
+<script setup>
+import {useRoute} from 'vue-router'
+const router =userRoute()
+</script>
+
+<template>
+// menampilkan data dari params id router
+<h1>{{$router.params.id}}</h1>
+</template>
+
+
+
+B. methods pada useRoute
+ 
+ 1. params: Objek yang berisi parameter rute. Misalnya, jika rute Anda adalah /user/:id, 
+ maka params akan berisi properti id.
+contoh:
+ const route = useRoute();
+ console.log(route.params.id); // Mendapatkan nilai dari parameter 'id'
+
+2. query: Objek yang berisi parameter query string dari URL.
+contoh :
+ const route = useRoute();
+ console.log(route.query.search); // Mendapatkan nilai dari query parameter 'search'
+
+3. hash: Bagian hash dari URL.
+ contoh :
+  const route = useRoute();
+  console.log(route.hash); // Mendapatkan nilai dari bagian hash URL
+
+4. fullPath: String yang berisi path lengkap rute, termasuk parameter dan query.
+contoh :
+ const route = useRoute();
+ console.log(route.fullPath); // Mendapatkan path lengkap, misalnya '/user/123?search=query'
+
+5. matched: Array yang berisi semua rute yang cocok dengan rute saat ini. Berguna jika 
+Anda memiliki rute bersarang.
+contoh:
+ const route = useRoute();
+ console.log(route.matched); // Mendapatkan array rute yang cocok
+ 
+ 6. meta: Objek yang berisi data meta yang didefinisikan dalam konfigurasi rute.
+ contoh :
+  const route = useRoute();
+ console.log(route.meta); // Mendapatkan data meta dari rute

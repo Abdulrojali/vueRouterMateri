@@ -1,0 +1,56 @@
+programatic adalah cara vue untuk menggunakan vue router pada methods maupun event 
+
+dua methods yang sering di gunakan didalam programatic vue js 
+
+1. push Metode ini digunakan untuk menavigasi ke URL lain. 
+Ini akan menambahkan entri navigasi ke riwayat, sehingga pengguna dapat menggunakan tombol "Mundur"
+ untuk kembali ke halaman sebelumnya.
+contoh :
+$router.push('/menu')
+
+2. replace   Metode ini mirip dengan push, tetapi akan mengganti entri terakhir di riwayat dengan yang baru.
+ Ini berguna jika Anda ingin mengganti halaman tanpa menambahkan entri baru ke riwayat.
+ contoh : 
+ this.$router.replace('/halaman-baru')
+
+
+3. router.go(n): Metode ini memungkinkan navigasi ke entri riwayat tertentu. Parameter n dapat berupa 
+bilangan bulat positif atau negatif, yang menunjukkan jumlah langkah ke depan atau ke belakang dalam riwayat.
+contoh :
+this.$router.go(1) // Melangkah maju satu langkah
+this.$router.go(-1) // Melangkah mundur satu langkah
+
+
+4. router.back() dan router.forward(): Metode ini setara dengan router.go(-1) dan router.go(1) secara 
+berturut-turut. back digunakan untuk melangkah mundur dalam riwayat, 
+sedangkan forward digunakan untuk melangkah maju.
+contoh :
+this.$router.back() // Melangkah mundur satu langkah
+this.$router.forward() // Melangkah maju satu langkah
+
+
+5. router.beforeEach(guard): Metode ini digunakan untuk mendaftarkan fungsi penjaga global 
+sebelum setiap navigasi. Fungsi penjaga ini dapat memutuskan apakah navigasi harus dilanjutkan atau dibatalkan.
+contoh : 
+const router = new VueRouter({ /* options */ })
+
+router.beforeEach((to, from, next) => {
+  // Logika penjaga navigasi
+  if (to.meta.requiresAuth && !auth.loggedIn()) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
+
+6. router.afterEach(hook): Metode ini digunakan untuk mendaftarkan fungsi hook yang akan dipanggil setelah 
+setiap navigasi selesai. Ini berguna untuk melakukan tindakan setelah navigasi selesai, seperti mengirim analitik.
+contoh :
+const router = new VueRouter({ /* options */ })
+
+router.afterEach((to, from) => {
+  // Logika setelah navigasi selesai
+  analytics.trackPage(to.path)
+})
+
